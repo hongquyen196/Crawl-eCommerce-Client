@@ -28,8 +28,6 @@ export class ProductDetailComponent implements OnInit {
     thongke: {
       vitri: '',
       daban: '',
-      daban30: '',
-      gia: '',
       giamax: '',
       giamin: '',
       likes: '',
@@ -40,22 +38,8 @@ export class ProductDetailComponent implements OnInit {
       isshop: '',
     },
     chuyenmuc: [],
-    mausanpham: [
-      {
-        ten: '',
-        ma: '',
-        gia: '',
-        kho: '',
-        daban: ''
-      }
-    ],
-    thuoctinh: [
-      {
-        ten: '',
-        ma: '',
-        giatri: ''
-      }
-    ]
+    mausanpham: [],
+    thuoctinh: []
   };
 
   ngOnInit() {
@@ -68,20 +52,31 @@ export class ProductDetailComponent implements OnInit {
       case id.indexOf('tiki'):
         this.product.image = this.data.thumbnail_url;
         this.product.url = 'https:/tiki.vn/' + this.data.url_path;
-        this.product.description = this.data.promotion;
-        this.proSer.getTikiProductDetail(this.data.url_path).subscribe(res => {
+        this.proSer.getTikiProductDetail(this.data.url_path).subscribe((res: any) => {
           if (res) {
-
+            this.product.description = res.promotion;
+            this.product.thongke.giamax = res.list_price;
+            this.product.thongke.kho = res.stock_item.qty;
+            if (res.custom_attributes.length > 0) {
+              res.custom_attributes.forEach(ele => {
+                const thuoctinh = {
+                  ma: ele.attribute,
+                  ten: ele.display_name,
+                  giatri: ele.value
+                };
+                this.product.thuoctinh.push(thuoctinh);
+              });
+            }
           }
           this.isLoading = false;
         });
         break;
       case id.indexOf('shopee'):
         this.product.price = this.data.price / 100000;
-        this.product.description = this.data.description;
         this.product.image = 'https://cf.shopee.vn/file/' + this.data.image;
-        this.proSer.getShopeeProductDetail(this.data.itemid, this.data.shopid).subscribe(res => {
+        this.proSer.getShopeeProductDetail(this.data.itemid, this.data.shopid).subscribe((res: any) => {
           if (res) {
+            this.product.description = res.item.description;
           }
           this.isLoading = false;
         });
@@ -89,9 +84,9 @@ export class ProductDetailComponent implements OnInit {
       case id.indexOf('sendo'):
         this.product.image = this.data.image;
         this.product.url = 'https:/sendo.vn/' + this.data.cat_path;
-        this.product.description = this.data.description;
         this.proSer.getSendoProductDetail(this.data.cat_path.substring(0, this.data.cat_path.length - 6)).subscribe((res: any) => {
           if (res) {
+            this.product.description = res.result.data.description;
           }
           this.isLoading = false;
         });

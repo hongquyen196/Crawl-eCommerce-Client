@@ -5,7 +5,7 @@
     </div>
     <div class="main">
       <div class="left">
-        <a class="btn-group btn-detail" target="_blank" href="{{product.url}}"><p style="margin: 10px">Mở trang Shopee<p></p></a>
+        <a class="btn-group btn-detail" target="_blank" href="{{product.url}}"><p style="margin: 10px">Mở trang bán hàng<p></p></a>
         <div class="summary">
           <img [src]="product.image">
           <a class="name-product" href="{{product.url}}"><p class="mg-b30">{{product.name}}</p></a>
@@ -20,7 +20,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr  *ngIf="product.thongke.vitri">
               <td class="display-space-between">
                 <div>
                   Vị trí
@@ -28,7 +28,7 @@
                 <div class="badge badge-info badge-pill">Hà Nội</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.daban">
               <td class="display-space-between">
                 <div>
                   Đã bán toàn thời gian
@@ -39,88 +39,80 @@
             <tr>
               <td class="display-space-between">
                 <div>
-                  Đã bán trong 30 ngày
-                </div>
-                <div class="badge badge-info badge-pill">0</div>
-              </td>
-            </tr>
-            <tr>
-              <td class="display-space-between">
-                <div>
                   Giá
                 </div>
-                <div class="badge badge-info badge-pill">{{formatCurrency().format(data?.price)}}' VND'</div>
+                <div class="badge badge-info badge-pill">{{formatCurrency().format(product.price)}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.giamax">
               <td class="display-space-between">
                 <div>
                   Giá cao nhất
                 </div>
-                <div class="badge badge-info badge-pill">159,000</div>
+                <div class="badge badge-info badge-pill">{{formatCurrency().format(product.price)}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.giamin">
               <td class="display-space-between">
                 <div>
                   Giá thấp nhất
                 </div>
-                <div class="badge badge-info badge-pill">159,000</div>
+                <div class="badge badge-info badge-pill">{{formatCurrency().format(product.price)}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.likes">
               <td class="display-space-between">
                 <div>
                   Lượt Thích
                 </div>
-                <div class="badge badge-info badge-pill">{{data?.favourite_count}}</div>
+                <div class="badge badge-info badge-pill">{{product.thongke.likes}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.kho">
               <td class="display-space-between">
                 <div>
                   Kho
                 </div>
-                <div class="badge badge-info badge-pill">118</div>
+                <div class="badge badge-info badge-pill">{{product.thongke.kho}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.danhgia">
               <td class="display-space-between">
                 <div>
                   Đánh giá
                 </div>
-                <div class="badge badge-info badge-pill">{{data?.rating_average}}</div>
+                <div class="badge badge-info badge-pill">{{product.thongke.danhgia}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.diemso">
               <td class="display-space-between">
                 <div>
                   Điểm số
                 </div>
-                <div class="badge badge-info badge-pill">0</div>
+                <div class="badge badge-info badge-pill">{{product.thongke.diemso}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.luotxem">
               <td class="display-space-between">
                 <div>
                   Lượt Xem
                 </div>
-                <div class="badge badge-info badge-pill">{{data?.review_count}}</div>
+                <div class="badge badge-info badge-pill">{{product.thongke.luotxem}}</div>
               </td>
             </tr>
-            <tr>
+            <tr  *ngIf="product.thongke.isshop">
               <td class="display-space-between">
                 <div>
                   Shop chính thức
 
                 </div>
-                <div class="badge badge-info badge-pill">x</div>
+                <div class="badge badge-info badge-pill">{{product.thongke.isshop === '0' ? '' : 'x'}}</div>
               </td>
             </tr>
             </tbody>
           </table>
         </div>
-        <div class="statistical">
+        <div class="statistical" *ngIf="product.chuyenmuc.length > 0">
           <p>Chuyên mục</p>
           <table class="table">
             <thead>
@@ -144,11 +136,11 @@
       <div class="right">
         <div class="product-description">
           <p style="font-size: 17px">Mô tả sản phẩm</p>
-          <p>
-            {{data?.short_description}}
+          <p [innerHTML]="product.description">
+
           </p>
         </div>
-        <div class="type-product">
+        <div class="type-product" *ngIf="product.mausanpham.length > 0">
           <p>Mẫu sản phẩm</p>
           <table class="table">
             <thead>
@@ -181,7 +173,7 @@
             </tbody>
           </table>
         </div>
-        <div class="type-product">
+        <div class="type-product" *ngIf="product.thuoctinh.length > 0">
           <p>Thuộc tính</p>
           <table class="table">
             <thead>
@@ -198,15 +190,10 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Thương hiệu</td>
-              <td>1253</td>
-              <td>Borofone</td>
-            </tr>
-            <tr>
-              <td>Bảo hành(tháng)</td>
-              <td>8849</td>
-              <td>6</td>
+            <tr *ngFor="let tt of product.thuoctinh">
+              <td>{{tt.ten}}</td>
+              <td>{{tt.ma}}</td>
+              <td>{{tt.giatri}}</td>
             </tr>
             </tbody>
           </table>
