@@ -20,11 +20,11 @@ export class ProductDetailService {
   getSendoProductDetail(urlPath) {
     const param = new HttpParams()
       .set('urlPath', urlPath)
-    return this.http.get(PathAPI.GET_SHOPEE_PRODUCT_DETAIL, { params: param });
+    return this.http.get(PathAPI.GET_SENDO_PRODUCT_DETAIL, { params: param });
   }
   getTikiProductDetail(urlPath) {
     const param = new HttpParams()
       .set('urlPath', urlPath)
-    return this.http.get(PathAPI.GET_SHOPEE_PRODUCT_DETAIL, { params: param });
+    return this.http.get(PathAPI.GET_TIKI_PRODUCT_DETAIL, { params: param });
   }
 }

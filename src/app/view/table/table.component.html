@@ -1,801 +1,385 @@
 <div class="ecd-btn__end ">
     <div class="form-group col-md-4">
-        <input
-            (focusout)="onFilterData($event)"
-            placeholder="Lọc dữ liệu..."
-            class="form-control"
-        >
+        <input (focusout)="onFilterData($event)" placeholder="Lọc dữ liệu..." class="form-control">
     </div>
-    <button
-        class="btn btn-success mr-2"
-        type="button"
-        (click)="onCopyToClipboard()"
-    >
+    <button class="btn btn-success mr-2" type="button" (click)="onCopyToClipboard()">
         Sao chép
     </button>
-    <button
-        class="btn btn-success mr-2"
-        type="button"
-        (click)="onLoadData()"
-    >
+    <button class="btn btn-success mr-2" type="button" (click)="onLoadData()">
         Tải 1k sản phẩm khác
     </button>
 </div>
-<div
-    class="ecd-loading"
-    *ngIf="isLoading"
-></div>
-<mat-progress-bar
-    mode="indeterminate"
-    [ngStyle]="{'visibility': isLoading ? 'initial' : 'hidden'}"
-></mat-progress-bar>
-<div
-    class="ecd-w-h__100"
-    [ngSwitch]="typeTradingFloor"
->
+<div class="ecd-loading" *ngIf="isLoading"></div>
+<mat-progress-bar mode="indeterminate" [ngStyle]="{'visibility': isLoading ? 'initial' : 'hidden'}"></mat-progress-bar>
+<div class="ecd-w-h__100" [ngSwitch]="typeTradingFloor">
     <div *ngSwitchDefault>Không tìm thấy sàn giao dịch</div>
-    <table
-        *ngSwitchCase="'0'"
-        mat-table
-        [dataSource]="dataSource"
-        matSort
-    >
-        <ng-container
-            matColumnDef="select"
-            sticky
-        >
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-                (class)="ecd-w__55x"
-            >
-                <mat-checkbox
-                    (change)="onAllSelected($event)"
-                    [checked]="checkAll"
-                >
+    <table *ngSwitchCase="'0'" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select" sticky>
+            <th mat-header-cell *matHeaderCellDef (class)="ecd-w__55x">
+                <mat-checkbox (change)="onAllSelected($event)" [checked]="checkAll">
                 </mat-checkbox>
             </th>
-            <td
-                mat-cell
-                *matCellDef="let row"
-            >
-                <mat-checkbox
-                    class="ecd-chk__box-pos"
-                    (change)="onSelectedRow($event, row)"
-                    (click)="onNothing($event)"
-                    [checked]="row.isChecked"
-                >
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox class="ecd-chk__box-pos" (change)="onSelectedRow($event, row)" (click)="onNothing($event)"
+                    [checked]="row.isChecked">
                 </mat-checkbox>
             </td>
         </ng-container>
         <ng-container matColumnDef="index">
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-            >
+            <th mat-header-cell *matHeaderCellDef>
                 #
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element; let i = index;"
-            >
+            <td mat-cell *matCellDef="let element; let i = index;">
                 {{i + 1}}
             </td>
         </ng-container>
-        <ng-container
-            matColumnDef="image"
-            sticky
-        >
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-                (class)="ecd-w__60x"
-            >
+        <ng-container matColumnDef="image" sticky>
+            <th mat-header-cell *matHeaderCellDef (class)="ecd-w__60x">
                 Hình ảnh
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
-                <img
-                    src="https://cf.shopee.vn/file/{{element.image}}"
-                    class="ecd-img__thumbnail"
-                >
+            <td mat-cell *matCellDef="let element">
+                <img src="https://cf.shopee.vn/file/{{element.image}}" class="ecd-img__thumbnail">
             </td>
         </ng-container>
         <ng-container matColumnDef="name">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Tên sản phẩm
             </th>
-            <td
-                mat-cell
-                [title]="element.name"
-                *matCellDef="let element"
-            >
+            <td mat-cell [title]="element.name" *matCellDef="let element">
                 <u class="ecd-nameprod">{{element.name}}</u>
             </td>
         </ng-container>
         <ng-container matColumnDef="price">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{abbreviateNumber((element.price / 100000) || 0) + ' '+element.currency}}
             </td>
         </ng-container>
         <ng-container matColumnDef="historical_sold">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 SL Đã bán
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{element.historical_sold}}
             </td>
         </ng-container>
         <ng-container matColumnDef="ctime">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Thời gian
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{element.ctime | date:'dd/MM/yyyy'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="stock">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 SL trong kho
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatCurrency().format(element.stock)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="discount">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Giảm giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{element.discount}}
             </td>
         </ng-container>
         <ng-container matColumnDef="view_count">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Xem
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatCurrency().format(element.view_count)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="liked_count">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Thích
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatCurrency().format(element.liked_count)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="cmt_count">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Bình luận
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatCurrency().format(element.cmt_count)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="rating_star">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Đánh giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatNumber(element.item_rating.rating_star)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="shop_location">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Tên cửa hàng
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-                [title]="element.shop_location"
-                class
-            >
+            <td mat-cell *matCellDef="let element" [title]="element.shop_location" class>
                 {{element.shop_location}}
             </td>
         </ng-container>
-        <ng-container
-            matColumnDef="sales"
-            stickyEnd
-        >
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+        <ng-container matColumnDef="sales" stickyEnd>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Doanh Thu
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{abbreviateNumber(element.historical_sold * (element.price / 100000))  + ' ' + element.currency}}
             </td>
         </ng-container>
         <tbody>
-            <tr
-                mat-header-row
-                *matHeaderRowDef="displayedColumnsShopee; sticky: true"
-            ></tr>
-            <tr
-                mat-row
-                class="ced-row {{rowSelected.itemid == row.itemid ? 'ecd-selected__row': ''}}"
-                (click)="onShowDetail(row)"
-                *matRowDef="let row; columns: displayedColumnsShopee; let i = index"
-            ></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsShopee; sticky: true"></tr>
+            <tr mat-row class="ced-row {{rowSelected.itemid == row.itemid ? 'ecd-selected__row': ''}}"
+                (click)="onShowDetail(row)" *matRowDef="let row; columns: displayedColumnsShopee; let i = index"></tr>
         </tbody>
     </table>
-    <table
-        *ngSwitchCase="'1'"
-        mat-table
-        [dataSource]="dataSource"
-        matSort
-    >
-        <ng-container
-            matColumnDef="select"
-            sticky
-        >
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-                (class)="ecd-w__55x"
-            >
-                <mat-checkbox
-                    (change)="onAllSelected($event)"
-                    [checked]="checkAll"
-                >
+    <table *ngSwitchCase="'1'" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select" sticky>
+            <th mat-header-cell *matHeaderCellDef (class)="ecd-w__55x">
+                <mat-checkbox (change)="onAllSelected($event)" [checked]="checkAll">
                 </mat-checkbox>
             </th>
-            <td
-                mat-cell
-                *matCellDef="let row"
-            >
-                <mat-checkbox
-                    class="ecd-chk__box-pos"
-                    (change)="onSelectedRow($event, row)"
-                    (click)="onNothing($event)"
-                    [checked]="row.isChecked"
-                >
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox class="ecd-chk__box-pos" (change)="onSelectedRow($event, row)" (click)="onNothing($event)"
+                    [checked]="row.isChecked">
                 </mat-checkbox>
             </td>
         </ng-container>
         <ng-container matColumnDef="index">
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-            >
+            <th mat-header-cell *matHeaderCellDef>
                 #
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element; let i = index;"
-            >
+            <td mat-cell *matCellDef="let element; let i = index;">
                 {{i + 1}}
             </td>
         </ng-container>
-        <ng-container
-            matColumnDef="thumbnail_url"
-            sticky
-        >
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-                (class)="ecd-w__60x"
-            >
+        <ng-container matColumnDef="thumbnail_url" sticky>
+            <th mat-header-cell *matHeaderCellDef (class)="ecd-w__60x">
                 Hình ảnh
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
-                <img
-                    [src]="element.thumbnail_url"
-                    class="ecd-img__thumbnail"
-                >
+            <td mat-cell *matCellDef="let element">
+                <img [src]="element.thumbnail_url" class="ecd-img__thumbnail">
             </td>
         </ng-container>
         <ng-container matColumnDef="name">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Tên sản phẩm
             </th>
-            <td
-                mat-cell
-                [title]="element.name"
-                *matCellDef="let element"
-            >
+            <td mat-cell [title]="element.name" *matCellDef="let element">
                 <u class="ecd-nameprod">{{element.name}}</u>
             </td>
         </ng-container>
         <ng-container matColumnDef="price">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{abbreviateNumber(element.price || 0) + ' đ'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="order_count">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 SL Đã bán
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatNumber(element.order_count)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="discount">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Giảm giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{abbreviateNumber(element.discount || 0) + ' đ'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="discount_rate">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Chiết khấu
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{element.discount_rate + '%'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="review_count">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Xem
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatNumber(element.review_count)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="favourite_count">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Thích
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatNumber(element.favourite_count)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="rating_average">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Đánh giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatNumber(element.rating_average)}}
             </td>
         </ng-container>
-        <ng-container
-            matColumnDef="sales"
-            stickyEnd
-        >
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+        <ng-container matColumnDef="sales" stickyEnd>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Doanh Thu
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{abbreviateNumber(element.order_count * element.price || 0) + ' đ'}}
             </td>
         </ng-container>
         <tbody>
-            <tr
-                mat-header-row
-                *matHeaderRowDef="displayedColumnsTiKi; sticky: true"
-            ></tr>
-            <tr
-                mat-row
-                class="ced-row {{rowSelected.id == row.id ? 'ecd-selected__row': ''}}"
-                (click)="onShowDetail(row)"
-                *matRowDef="let row; columns: displayedColumnsTiKi; let i = index"
-            ></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsTiKi; sticky: true"></tr>
+            <tr mat-row class="ced-row {{rowSelected.id == row.id ? 'ecd-selected__row': ''}}"
+                (click)="onShowDetail(row)" *matRowDef="let row; columns: displayedColumnsTiKi; let i = index"></tr>
         </tbody>
     </table>
-    <table
-        *ngSwitchCase="'2'"
-        mat-table
-        [dataSource]="dataSource"
-        matSort
-    >
-        <ng-container
-            matColumnDef="select"
-            sticky
-        >
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-                (class)="ecd-w__55x"
-            >
-                <mat-checkbox
-                    (change)="onAllSelected($event)"
-                    [checked]="checkAll"
-                >
+    <table *ngSwitchCase="'2'" mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="select" sticky>
+            <th mat-header-cell *matHeaderCellDef (class)="ecd-w__55x">
+                <mat-checkbox (change)="onAllSelected($event)" [checked]="checkAll">
                 </mat-checkbox>
             </th>
-            <td
-                mat-cell
-                *matCellDef="let row"
-            >
-                <mat-checkbox
-                    class="ecd-chk__box-pos"
-                    (change)="onSelectedRow($event, row)"
-                    (click)="onNothing($event)"
-                    [checked]="row.isChecked"
-                >
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox class="ecd-chk__box-pos" (change)="onSelectedRow($event, row)" (click)="onNothing($event)"
+                    [checked]="row.isChecked">
                 </mat-checkbox>
             </td>
         </ng-container>
         <ng-container matColumnDef="index">
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-            >
+            <th mat-header-cell *matHeaderCellDef>
                 #
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element; let i = index;"
-            >
+            <td mat-cell *matCellDef="let element; let i = index;">
                 {{i + 1}}
             </td>
         </ng-container>
-        <ng-container
-            matColumnDef="image"
-            sticky
-        >
-            <th
-                mat-header-cell
-                *matHeaderCellDef
-                (class)="ecd-w__60x"
-            >
+        <ng-container matColumnDef="image" sticky>
+            <th mat-header-cell *matHeaderCellDef (class)="ecd-w__60x">
                 Hình ảnh
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
-                <img
-                    src="{{element.image}}"
-                    class="ecd-img__thumbnail"
-                >
+            <td mat-cell *matCellDef="let element">
+                <img src="{{element.image}}" class="ecd-img__thumbnail">
             </td>
         </ng-container>
         <ng-container matColumnDef="name">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Tên sản phẩm
             </th>
-            <td
-                mat-cell
-                [title]="element.name"
-                *matCellDef="let element"
-            >
+            <td mat-cell [title]="element.name" *matCellDef="let element">
                 <u class="ecd-nameprod">{{element.name}}</u>
             </td>
         </ng-container>
         <ng-container matColumnDef="final_price">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{abbreviateNumber((element.final_price) || 0) + ' đ'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="order_count">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 SL Đã bán
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{element.order_count}}
             </td>
         </ng-container>
         <ng-container matColumnDef="original_price">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Giá gốc
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{convertOriginalPrice(element.original_price || 0) + ' đ'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="final_promotion_percent">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Khuyễn mãi
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{element.final_promotion_percent + '%'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="shop_name">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Tên cửa hàng
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-                [title]="element.shop_name"
-                class
-            >
+            <td mat-cell *matCellDef="let element" [title]="element.shop_name" class>
                 {{element.shop_name}}
             </td>
         </ng-container>
         <ng-container matColumnDef="counter_view">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Xem
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatCurrency().format(element.counter_view)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="counter_like">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Thích
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatCurrency().format(element.counter_like)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="total_comment">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Bình luận
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatCurrency().format(element.total_comment)}}
             </td>
         </ng-container>
         <ng-container matColumnDef="percent_star">
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Đánh giá
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{formatNumber(element.percent_star)}}
             </td>
         </ng-container>
-        <ng-container
-            matColumnDef="sales"
-            stickyEnd
-        >
-            <th
-                mat-header-cell
-                mat-sort-header
-                *matHeaderCellDef
-            >
+        <ng-container matColumnDef="sales" stickyEnd>
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>
                 Doanh Thu
             </th>
-            <td
-                mat-cell
-                *matCellDef="let element"
-            >
+            <td mat-cell *matCellDef="let element">
                 {{abbreviateNumber(element.order_count * (element.price))  + ' đ'}}
             </td>
         </ng-container>
         <tbody>
-            <tr
-                mat-header-row
-                *matHeaderRowDef="displayedColumnsSendo; sticky: true"
-            ></tr>
-            <tr
-                mat-row
-                class="ced-row {{rowSelected.id == row.id ? 'ecd-selected__row': ''}}"
-                (click)="onShowDetail(row)"
-                *matRowDef="let row; columns: displayedColumnsSendo; let i = index"
-            ></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumnsSendo; sticky: true"></tr>
+            <tr mat-row class="ced-row {{rowSelected.id == row.id ? 'ecd-selected__row': ''}}"
+                (click)="onShowDetail(row)" *matRowDef="let row; columns: displayedColumnsSendo; let i = index"></tr>
         </tbody>
     </table>
     <div *ngSwitchCase="'7'" style="text-align: center;">{{mess[1]}}</div>
     <div *ngSwitchCase="'8'" style="text-align: center;">{{mess[3]}}</div>
 </div>
 <div class="ecd-pagination">
-    <ngb-pagination
-        [collectionSize]="pagination.totalRecords"
-        [pageSize]="pagination.pageSize"
-        [(page)]="pagination.page"
-        [maxSize]="5"
-        (pageChange)="onPaginatorBT($event)"
-        [boundaryLinks]="true"
-        class="pagination-rounded"
-    ></ngb-pagination>
-    <mat-paginator
-        [pageSize]="pagination.pageSize"
-        [pageIndex]="pagination.page - 1"
-        [length]="pagination.totalRecords"
-        (page)="onPaginator($event)"
-        [pageSizeOptions]="[10, 100, 1000]"
-    ></mat-paginator>
+    <ngb-pagination [collectionSize]="pagination.totalRecords" [pageSize]="pagination.pageSize"
+        [(page)]="pagination.page" [maxSize]="5" (pageChange)="onPaginatorBT($event)" [boundaryLinks]="true"
+        class="pagination-rounded"></ngb-pagination>
+    <mat-paginator [pageSize]="pagination.pageSize" [pageIndex]="pagination.page - 1" [length]="pagination.totalRecords"
+        (page)="onPaginator($event)" [pageSizeOptions]="[10, 100, 1000]"></mat-paginator>
 </div>
 <!-- <div
     class="ced-loading"
