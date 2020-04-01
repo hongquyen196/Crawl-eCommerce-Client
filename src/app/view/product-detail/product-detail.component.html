@@ -106,7 +106,7 @@
                   Shop chính thức
 
                 </div>
-                <div class="badge badge-info badge-pill">{{product.thongke.isshop === '0' ? '' : 'x'}}</div>
+                <div class="badge badge-info badge-pill">{{product.thongke.isshop === 'false' ? '' : 'x'}}</div>
               </td>
             </tr>
             </tbody>
@@ -120,14 +120,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Thiết bi điện tử</td>
-            </tr>
-            <tr>
-              <td>Thiết bị âm thanh</td>
-            </tr>
-            <tr>
-              <td>Loa bluetooth</td>
+            <tr *ngFor="let cm of product.chuyenmuc">
+              <td>{{cm}}</td>
             </tr>
             </tbody>
           </table>
