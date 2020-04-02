@@ -50,7 +50,7 @@ export class ProductDetailComponent implements OnInit {
     switch (0) {
       case id.indexOf('tiki'):
         this.product.image = this.data.thumbnail_url;
-        this.product.url = 'https:/tiki.vn/' + this.data.url_path;
+        this.product.url = 'https://tiki.vn/' + this.data.url_path;
         this.proSer.getTikiProductDetail(this.data.url_path).subscribe((res: any) => {
           if (res) {
             this.product.description = res.promotion;
@@ -73,7 +73,7 @@ export class ProductDetailComponent implements OnInit {
       case id.indexOf('shopee'):
         this.product.price = this.data.price / 100000;
         this.product.image = 'https://cf.shopee.vn/file/' + this.data.image;
-        this.product.url = 'https:/shopee.vn/' + this.data.name + '-i.' + this.data.shopid + '.' + this.data.itemid;
+        this.product.url = 'https://shopee.vn/' + this.data.name + '-i.' + this.data.shopid + '.' + this.data.itemid;
         this.proSer.getShopeeProductDetail(this.data.itemid, this.data.shopid).subscribe((res: any) => {
           if (res) {
             this.product.description = res.item.description;
@@ -115,7 +115,7 @@ export class ProductDetailComponent implements OnInit {
         break;
       case id.indexOf('sendo'):
         this.product.image = this.data.image;
-        this.product.url = 'https:/sendo.vn/' + this.data.cat_path;
+        this.product.url = 'https://sendo.vn/' + this.data.cat_path;
         this.proSer.getSendoProductDetail(this.data.cat_path.substring(0, this.data.cat_path.length - 6)).subscribe((res: any) => {
           if (res) {
             this.product.description = res.result.data.description;
