@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category/category.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {OverlayService} from '../../common/overlay/overlay.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { OverlayService } from '../../common/overlay/overlay.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -34,11 +34,11 @@ export class CategoryDetailComponent implements OnInit {
     // @ts-ignore
     const id;
     // @ts-ignore
-    this.route.params.subscribe( params => id = params.id);
-    this.categoryService.getListSubCategory(id).subscribe( res => {
+    this.route.params.subscribe(params => id = params.id);
+    this.categoryService.getListSubCategory(id).subscribe(res => {
       this.listCategory = res;
     });
-    this.categoryService.getListShop(id).subscribe( (res: any) => {
+    this.categoryService.getListShop(id).subscribe((res: any) => {
       switch (0) {
         case id.indexOf('tiki'):
           this.parentName = 'TIKI';
@@ -49,13 +49,18 @@ export class CategoryDetailComponent implements OnInit {
         case id.indexOf('shopee'):
           this.parentName = 'SHOPEE';
           if (res) {
-            this.listShopShopee = res.data.items;
+            this.listShopShopee = res.data.items.map(shop => {
+              shop.ctime = new Date(shop.ctime * 1000).toLocaleString();
+              return shop;
+            })
           }
           break;
         case id.indexOf('sendo'):
           this.parentName = 'SENDO';
           if (res) {
-            this.listShopSendo = res.result.data;
+            this.listShopSendo = res.result.data.filter((thing, i, arr) => {
+              return arr.indexOf(arr.find(t => t.admin_id === thing.admin_id)) === i
+            });
           }
           break;
       }
@@ -72,7 +77,7 @@ export class CategoryDetailComponent implements OnInit {
     })
     this.listCatCB = listCatCB;
     localStorage.setItem('category', JSON.stringify(listCatCB));
-    this.categoryService.getListSubCategory(id_category).subscribe( res => {
+    this.categoryService.getListSubCategory(id_category).subscribe(res => {
       this.listCategory = res;
       this.overlay.close();
     });

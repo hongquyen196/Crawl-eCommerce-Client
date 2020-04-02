@@ -17,15 +17,15 @@
       <li class="breadcrumb-item" *ngFor="let cat of listCatCB"><a href="javascript:void(0)">{{cat.name}}</a></li>
     </ol>
   </nav>
-<!-- <div class="hot-key">-->
-<!--  <nav aria-label="breadcrumb" role="navigation">-->
-<!--    <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">-->
-<!--      <li class="breadcrumb-item"><a href="#">Home</a></li>-->
-<!--      <li class="breadcrumb-item"><a href="#">{{parentName}}</a></li>-->
-<!--      <li class="breadcrumb-item active" aria-current="page"><span>Data</span></li>-->
-<!--    </ol>-->
-<!--  </nav>-->
-<!-- </div> -->
+  <!-- <div class="hot-key">-->
+  <!--  <nav aria-label="breadcrumb" role="navigation">-->
+  <!--    <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">-->
+  <!--      <li class="breadcrumb-item"><a href="#">Home</a></li>-->
+  <!--      <li class="breadcrumb-item"><a href="#">{{parentName}}</a></li>-->
+  <!--      <li class="breadcrumb-item active" aria-current="page"><span>Data</span></li>-->
+  <!--    </ol>-->
+  <!--  </nav>-->
+  <!-- </div> -->
   <div class="recommended">
     <div class="title-recomended">
       <button type="button" class="btn btn-primary btn-fw" (click)="loadProduct()" *ngIf="!showListProduct">Đề suất sản
@@ -52,13 +52,14 @@
   <div class="category-sub">
     <div class="row">
       <div *ngIf="listCategory.length == 0">
-          <p>Không tìm thấy danh mục như yêu cầu</p>
+        <p>Không tìm thấy danh mục như yêu cầu</p>
       </div>
       <div class="col-md-4 col-sm-6 grid-margin stretch-card" *ngFor="let data of listCategory">
         <div class="card">
           <div class="card-body pd-unset display_flex">
             <img [src]="data.imageUrl || 'assets/images/mebe.jpg'" class="mr-10p image-category">
-            <div *ngIf="data.isParent == '1'" class="card-right cuiso" (click)="openCategory(data.categoryId, data.categoryName)">
+            <div *ngIf="data.isParent == '1'" class="card-right cuiso"
+              (click)="openCategory(data.categoryId, data.categoryName)">
               <h4 class="card-title">{{data.categoryName}}</h4>
               <p class="card-description text-mute">{{data.categoryName}}</p>
             </div>
@@ -80,17 +81,17 @@
             <a class="card-title card-shop-title" target="_blank" href="{{data.seo_url}}">{{data.shop_name}}</a>
             <p class="card-description text-mute">{{data.username}}</p>
           </div>
-<!--          <div class="shop-time">-->
-<!--            <div style="height: 20px" placement="top" ngbTooltip="Ngày tham gia" container="body">-->
-<!--              <i class="fa fa-calendar"></i> 26/03/2020-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-cubes" placement="top" ngbTooltip="Số sản phẩm" container="body"></i>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-group" placement="top" ngbTooltip="Số người theo dõi" container="body"></i>-->
-<!--          </div>-->
+          <!--          <div class="shop-time">-->
+          <!--            <div style="height: 20px" placement="top" ngbTooltip="Ngày tham gia" container="body">-->
+          <!--              <i class="fa fa-calendar"></i> 26/03/2020-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--          <div class="shop-time">-->
+          <!--            <i class="fa fa-cubes" placement="top" ngbTooltip="Số sản phẩm" container="body"></i>-->
+          <!--          </div>-->
+          <!--          <div class="shop-time">-->
+          <!--            <i class="fa fa-group" placement="top" ngbTooltip="Số người theo dõi" container="body"></i>-->
+          <!--          </div>-->
         </div>
       </div>
     </div>
@@ -102,39 +103,32 @@
             <a class="card-title card-shop-title" target="_blank" href="{{data.seo_url}}">{{data.shop_name}}</a>
             <p class="card-description text-mute">{{data.username}}</p>
           </div>
-<!--          <div class="shop-time">-->
-<!--            <div style="height: 20px" placement="top" ngbTooltip="Ngày tham gia" container="body">-->
-<!--              <i class="fa fa-calendar"></i> 26/03/2020-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-cubes" placement="top" ngbTooltip="Số sản phẩm" container="body"></i>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-group" placement="top" ngbTooltip="Số người theo dõi" container="body"></i>-->
-<!--          </div>-->
+          <div class="shop-time">
+            <div style="height: 20px" placement="top" ngbTooltip="Ngày tham gia" container="body">
+              <i class="fa fa-calendar"></i> {{data.ctime}}
+            </div>
+          </div>
+          <!-- <div class="shop-time">
+            <i class="fa fa-cubes" placement="top" ngbTooltip="Số sản phẩm" container="body"></i>
+          </div>
+          <div class="shop-time">
+            <i class="fa fa-group" placement="top" ngbTooltip="Số người theo dõi" container="body"></i>
+          </div> -->
         </div>
       </div>
     </div>
     <div class="col-md-12 col-sm-6 shop" *ngFor="let data of listShopTiki">
       <div class="card-shop">
         <div class="card-body pd-unset display_flex">
-<!--          <img src="assets/images/mebe.jpg" class="mr-10p image-shop">-->
           <div class="card-right cuiso" style="width: 30%;">
-            <a class="card-title card-shop-title" target="_blank" href="{{data.display_value}}">{{data.display_value}}</a>
-<!--            <p class="card-description text-mute">{{data.display_value}}</p>-->
+            <a class="card-title card-shop-title" target="_blank"
+              href="https://tiki.vn/search?q={{data.display_value}}">{{data.display_value}}</a>
+            <p class="card-description text-mute">{{data.query_name}}</p>
           </div>
-<!--          <div class="shop-time">-->
-<!--            <div style="height: 20px" placement="top" ngbTooltip="Ngày tham gia" container="body">-->
-<!--              <i class="fa fa-calendar"></i> 26/03/2020-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-cubes" placement="top" ngbTooltip="Số sản phẩm" container="body"></i>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-group" placement="top" ngbTooltip="Số người theo dõi" container="body"></i>-->
-<!--          </div>-->
+          <div class="shop-time">
+            <i class="fa fa-cubes" placement="top" ngbTooltip="Số sản phẩm" container="body"></i>
+            {{data.count}}
+          </div>
         </div>
       </div>
     </div>
@@ -143,25 +137,38 @@
         <div class="card-body pd-unset display_flex">
           <img src="{{data.img_url}}" class="mr-10p image-shop">
           <div class="card-right cuiso" style="width: 30%;">
-            <a class="card-title card-shop-title" target="_blank" href="{{data.shop_info.shop_name}}">{{data.shop_info.shop_name}}</a>
-<!--            <p class="card-description text-mute">{{data.shop_info.shop_name}}</p>-->
+            <a class="card-title card-shop-title" target="_blank"
+              href="https://www.sendo.vn/tim-kiem?q={{data.shop_info.shop_name}}">{{data.shop_info.shop_name}}</a>
+            <p class="card-description text-mute">{{data.shop_info.shop_name}}</p>
           </div>
-<!--          <div class="shop-time">-->
-<!--            <div style="height: 20px" placement="top" ngbTooltip="Ngày tham gia" container="body">-->
-<!--              <i class="fa fa-calendar"></i> 26/03/2020-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-cubes" placement="top" ngbTooltip="Số sản phẩm" container="body"></i>-->
-<!--          </div>-->
-<!--          <div class="shop-time">-->
-<!--            <i class="fa fa-group" placement="top" ngbTooltip="Số người theo dõi" container="body"></i>-->
-<!--          </div>-->
+          <div class="shop-time">
+            <div style="height: 20px" placement="top" ngbTooltip="Tỷ lệ đánh giá tốt" container="body">
+              <i class="fa fa-star"></i>
+              {{data.shop_info.good_review_percent ? data.shop_info.good_review_percent + '% đơn hàng tốt' : 'Chưa có đánh giá'}}
+            </div>
+          </div>
+          <div class="shop-time">
+            <div *ngIf="data.shop_info.good_review_percent" style="height: 20px" placement="top" ngbTooltip="Uy tín"
+              container="body">
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uemVybyI+CiAgICAgICAgPGNpcmNsZSBjeD0iOCIgY3k9IjExIiByPSI1IiBmaWxsPSIjRkZDNjAwIi8+CiAgICAgICAgPHBhdGggZmlsbD0iI0YxNTE0RiIgZD0iTTQgMGg4djRMOC4wMDIgNiA0IDR6Ii8+CiAgICA8L2c+Cjwvc3ZnPgo=">
+              Uy tín
+            </div>
+          </div>
+          <div class="shop-time">
+            <div *ngIf="data.shop_info.shop_mall" style="height: 20px" placement="top" ngbTooltip="SenMall"
+              container="body">
+              <svg width="1em" height="1em" viewBox="0 0 24 24" class="icon_2TZ4">
+                <path fill="#EE2624"
+                  d="M13.663 2.906l7 4.66A3 3 0 0122 10.063v8.816c0 1.657-1.343 3.117-3 3.117H5c-1.657 0-3-1.46-3-3.117v-8.816a3 3 0 011.337-2.497l7-4.66a3 3 0 013.326 0zM11.446 4.57l-7 4.661a1 1 0 00-.446.832v8.816c0 .552.448 1.117 1 1.117h14c.552 0 1-.565 1-1.117v-8.816a1 1 0 00-.446-.832l-7-4.66a1 1 0 00-1.108 0zm-1.739 5.725L12 12.588l2.293-2.293c.63-.63 1.707-.184 1.707.707v6a1 1 0 01-2 0v-3.586l-1.293 1.293a1 1 0 01-1.414 0L10 13.416v3.586a1 1 0 01-2 0v-6c0-.89 1.077-1.337 1.707-.707z">
+                </path>
+              </svg>
+              SenMall
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<app-product-detail *ngIf="showDetailProduct" (click)="closeDetailProduct($event)" [data]="productDetail"></app-product-detail>
-
-
+  <app-product-detail *ngIf="showDetailProduct" (click)="closeDetailProduct($event)" [data]="productDetail">
+  </app-product-detail>

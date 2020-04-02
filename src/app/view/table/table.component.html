@@ -12,7 +12,7 @@
 <div class="ecd-loading" *ngIf="isLoading"></div>
 <mat-progress-bar mode="indeterminate" [ngStyle]="{'visibility': isLoading ? 'initial' : 'hidden'}"></mat-progress-bar>
 <div class="ecd-w-h__100" [ngSwitch]="typeTradingFloor">
-    <div *ngSwitchDefault>Không tìm thấy sàn giao dịch</div>
+    <div *ngSwitchDefault>Không tìm thấy dữ liệu</div>
     <table *ngSwitchCase="'0'" mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="select" sticky>
             <th mat-header-cell *matHeaderCellDef (class)="ecd-w__55x">
@@ -70,7 +70,7 @@
                 Thời gian
             </th>
             <td mat-cell *matCellDef="let element">
-                {{element.ctime | date:'dd/MM/yyyy'}}
+                {{element.ctime * 1000 | date:'dd/MM/yyyy'}}
             </td>
         </ng-container>
         <ng-container matColumnDef="stock">
