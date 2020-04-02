@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loginService.successSignUp = '';
     this.overlay.open();
     this.loginService.login(this.username, this.password).subscribe(res => {
       localStorage.setItem('userInfo', JSON.stringify(res));
