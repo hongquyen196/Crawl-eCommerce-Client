@@ -1,6 +1,6 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {ProductDetailService} from './product-detail.service';
-import {ActivatedRoute} from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { ProductDetailService } from './product-detail.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,8 +14,7 @@ export class ProductDetailComponent implements OnInit {
   constructor(
     private proSer: ProductDetailService,
     private route: ActivatedRoute
-  ) {
-  }
+  ) { }
 
   isLoading = false;
   product: any = {
@@ -80,6 +79,7 @@ export class ProductDetailComponent implements OnInit {
             this.product.description = res.item.description;
             this.product.thongke.vitri = res.item.shop_location;
             this.product.thongke.daban = res.item.historical_sold;
+            this.product.thongke.doanhthu = this.product.price * this.product.thongke.daban;
             this.product.thongke.giamax = res.item.price_max / 100000;
             this.product.thongke.giamin = res.item.price_min / 100000;
             this.product.thongke.likes = res.item.liked_count;
