@@ -2,6 +2,7 @@
   width: 20%;
   margin: auto;
   margin-top: 10%;
+  padding-bottom: 40px;
 }
 .btn-submit {
   margin-top: 10px;
@@ -13,4 +14,11 @@
   font-weight: 500;
   color: #580b0bed;
   font-family: cursive;
+}
+.required {
+  color: red;
+}
+.error {
+  font-size: 12px;
+  color: red;
 }
