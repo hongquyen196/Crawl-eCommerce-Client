@@ -1,16 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {OverlayService} from './common/overlay/overlay.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { OverlayService } from './common/overlay/overlay.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'CES';
-  constructor( private route: Router,
-               private overlay: OverlayService) {
+  constructor(private route: Router,
+    public overlayService: OverlayService) {
   }
   isLogin = false;
   ngOnInit() {
