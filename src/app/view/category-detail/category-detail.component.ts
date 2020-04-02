@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../category/category.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {OverlayService} from '../../common/overlay/overlay.service';
 
 @Component({
   selector: 'app-category-detail',
@@ -20,12 +21,16 @@ export class CategoryDetailComponent implements OnInit {
   listShopTiki = [];
   listShopSendo = [];
   listShopLazada = [];
+  listCatCB: any = [];
   constructor(
     private categoryService: CategoryService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private overlay: OverlayService
   ) { }
 
   ngOnInit() {
+    this.overlay.open();
+    this.listCatCB = JSON.parse(localStorage.getItem('category'));
     // @ts-ignore
     const id;
     // @ts-ignore
@@ -36,28 +41,40 @@ export class CategoryDetailComponent implements OnInit {
     this.categoryService.getListShop(id).subscribe( (res: any) => {
       switch (0) {
         case id.indexOf('tiki'):
+          this.parentName = 'TIKI';
           if (res) {
             this.listShopTiki = res.filters[res.filters.length - 1].values;
           }
           break;
         case id.indexOf('shopee'):
+          this.parentName = 'SHOPEE';
           if (res) {
             this.listShopShopee = res.data.items;
           }
           break;
         case id.indexOf('sendo'):
+          this.parentName = 'SENDO';
           if (res) {
             this.listShopSendo = res.result.data;
           }
           break;
       }
+      this.overlay.close();
     })
     this.parentName = this.categoryService.categoryParrent;
   }
 
-  openCategory(id_category) {
+  openCategory(id_category, name) {
+    this.overlay.open();
+    const listCatCB = JSON.parse(localStorage.getItem('category'));
+    listCatCB.push({
+      id: id_category, name: name
+    })
+    this.listCatCB = listCatCB;
+    localStorage.setItem('category', JSON.stringify(listCatCB));
     this.categoryService.getListSubCategory(id_category).subscribe( res => {
       this.listCategory = res;
+      this.overlay.close();
     });
   }
 
@@ -67,7 +84,6 @@ export class CategoryDetailComponent implements OnInit {
   }
 
   openProduct(event) {
-    console.log(event);
     this.productDetail = event;
     this.showDetailProduct = true;
   }
