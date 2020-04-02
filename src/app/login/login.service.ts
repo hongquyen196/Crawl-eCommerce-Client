@@ -15,8 +15,5 @@ export class LoginService {
     const params = new HttpParams().set('userName', username).set('password', password);
     return this.http.post(PathAPI.LOGIN, {}, {params});
   }
-
-  logout() {
-    return this.http.get(PathAPI.LOGOUT);
-  }
+  
 }

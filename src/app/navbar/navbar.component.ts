@@ -35,10 +35,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.loginService.logout().subscribe(res => {
-      localStorage.removeItem('userInfo');
-      window.location.href = '/login';
-    })
+    localStorage.removeItem('userInfo');
+    window.location.href = '/login';
   }
 
 }

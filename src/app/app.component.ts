@@ -9,7 +9,6 @@ import {Router} from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'CES';
   constructor( private route: Router) {
-
   }
   isLogin = false;
   ngOnInit() {

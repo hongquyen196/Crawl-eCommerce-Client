@@ -25,8 +25,9 @@ import { TooltipModule } from 'ngx-bootstrap';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ErrorInterceptor } from './auth/error.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +68,10 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatProgressBarModule,
     MatSnackBarModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
