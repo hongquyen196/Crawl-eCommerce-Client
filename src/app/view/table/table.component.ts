@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output, EventEmitter, AfterViewInit, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -239,35 +239,25 @@ export class TableComponent implements OnInit {
     let text = [];
     switch (this.typeTradingFloor) {
       case 0:
-        text = arr.map((item) => (item.shopid + '/' + item.itemid));
-        for (let index = 0; index < text.length; index++) {
-          text[index] = 'https://shopee.vn/product/' + text[index];
-        }
+        text = arr.map((item) => (`https://shopee.vn/product/${item.shopid}/${item.itemid}`));
         break;
       case 1:
-        text = arr.map((item) => item.url_path);
-        for (let index = 0; index < text.length; index++) {
-          text[index] = 'https://tiki.vn/' + text[index];
-        }
+        text = arr.map((item) => `https://tiki.vn/${item.url_path}`);
         break;
       case 2:
-        text = arr.map((item) => item.cat_path);
-        for (let index = 0; index < text.length; index++) {
-          text[index] = 'https://www.sendo.vn/' + text[index];
-        }
+        text = arr.map((item) => `https://www.sendo.vn/${item.cat_path}`);
         break;
     }
-
     const node = document.createElement('textarea');
     const selection = document.getSelection();
-    node.textContent = text.join(' ');
+    node.textContent = text.join('\r\n');
     document.body.appendChild(node);
     selection.removeAllRanges();
     node.select();
     document.execCommand('copy');
     selection.removeAllRanges();
     document.body.removeChild(node);
-    this._snackBar.open(this.mess[4], 'Undo', {
+    this._snackBar.open(this.mess[4], 'Hủy', {
       duration: 3000
     });
   }
@@ -277,7 +267,6 @@ export class TableComponent implements OnInit {
   formatNumber(value) {
     return value && Number(value.toFixed(2));
   }
-
   abbreviateNumber(n) {
     if (n < 1e3) { return n; }
     if (n >= 1e3 && n < 1e6) { return +(n / 1e3).toFixed(1) + 'k'; }
