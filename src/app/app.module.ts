@@ -28,6 +28,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from './auth/error.interceptor';
+import { OverlayComponent } from './common/overlay/overlay.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { ErrorInterceptor } from './auth/error.interceptor';
     TableComponent,
     LoginComponent,
     SignUpComponent,
-    TableComponent
+    TableComponent,
+    OverlayComponent
   ],
   imports: [
     BrowserModule,

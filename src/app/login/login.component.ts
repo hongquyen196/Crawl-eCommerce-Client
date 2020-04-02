@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import {OverlayService} from '../common/overlay/overlay.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService: LoginService,
-    private route: Router
+    private route: Router,
+    private overlay: OverlayService
   ) {
   }
   loginLayout: any;
@@ -28,10 +30,13 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.overlay.open();
     this.loginService.login(this.username, this.password).subscribe(res => {
       localStorage.setItem('userInfo', JSON.stringify(res));
       window.location.reload();
+      this.overlay.close();
     }, error => {
+      this.overlay.close();
       this.valid = true;
     });
   }
