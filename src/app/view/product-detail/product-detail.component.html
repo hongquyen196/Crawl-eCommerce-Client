@@ -178,7 +178,7 @@
         </div>
         <div class="type-product" *ngIf="product.thuoctinh.length > 0">
           <p>Thuộc tính</p>
-          <table class="table">
+          <table class="table product-properties">
             <thead>
               <tr>
                 <th>
@@ -196,7 +196,7 @@
               <tr *ngFor="let tt of product.thuoctinh">
                 <td>{{tt.ten}}</td>
                 <td>{{tt.ma}}</td>
-                <td>{{tt.giatri}}</td>
+                <td class="text-justify">{{tt.giatri}}</td>
               </tr>
             </tbody>
           </table>

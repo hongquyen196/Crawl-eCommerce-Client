@@ -56,6 +56,7 @@ export class ProductDetailComponent implements OnInit {
             this.product.description = res.promotion;
             this.product.thongke.giamax = res.list_price;
             this.product.thongke.kho = res.stock_item.qty;
+            this.product.thongke.danhgia = res.review;
             if (res.custom_attributes && res.custom_attributes.length > 0) {
               res.custom_attributes.forEach(ele => {
                 const thuoctinh = {
