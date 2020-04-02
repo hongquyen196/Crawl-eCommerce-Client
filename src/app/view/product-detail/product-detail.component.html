@@ -8,7 +8,7 @@
         <a class="btn-group btn-detail" target="_blank" href="{{product.url}}"><p style="margin: 10px">Mở trang bán hàng<p></p></a>
         <div class="summary">
           <img [src]="product.image">
-          <a class="name-product" href="{{product.url}}"><p class="mg-b30">{{product.name}}</p></a>
+          <a class="name-product" href="{{product.url}}" target="_blank" ><p class="mg-b30">{{product.name}}</p></a>
           <p class="price mg-b30">{{formatCurrency().format(product.price)}} VND</p>
           <p class="date-product mg-b30" *ngIf="product.date">{{product.date}}</p>
         </div>

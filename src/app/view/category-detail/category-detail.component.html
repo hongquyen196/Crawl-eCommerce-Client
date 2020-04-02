@@ -13,9 +13,8 @@
   </div> -->
   <nav aria-label="breadcrumb" role="navigation">
     <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
-      <li class="breadcrumb-item"><a href="category">Danh mục</a></li>
-      <li class="breadcrumb-item"><a href="#">{{parentName}}</a></li>
-      <li class="breadcrumb-item active" aria-current="page"><span></span></li>
+      <li class="breadcrumb-item"><a href="category">{{parentName}}</a></li>
+      <li class="breadcrumb-item" *ngFor="let cat of listCatCB"><a href="javascript:void(0)">{{cat.name}}</a></li>
     </ol>
   </nav>
 <!-- <div class="hot-key">-->
@@ -59,7 +58,7 @@
         <div class="card">
           <div class="card-body pd-unset display_flex">
             <img [src]="data.imageUrl || 'assets/images/mebe.jpg'" class="mr-10p image-category">
-            <div *ngIf="data.isParent == '1'" class="card-right cuiso" (click)="openCategory(data.categoryId)">
+            <div *ngIf="data.isParent == '1'" class="card-right cuiso" (click)="openCategory(data.categoryId, data.categoryName)">
               <h4 class="card-title">{{data.categoryName}}</h4>
               <p class="card-description text-mute">{{data.categoryName}}</p>
             </div>
