@@ -11,7 +11,7 @@ import {OverlayService} from '../common/overlay/overlay.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private loginService: LoginService,
+    public loginService: LoginService,
     private route: Router,
     private overlay: OverlayService
   ) {
