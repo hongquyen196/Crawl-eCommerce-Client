@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {CategoryService} from './category.service';
-import {Router} from '@angular/router';
-import {OverlayService} from '../../common/overlay/overlay.service';
+import { Component, OnInit } from '@angular/core';
+import { CategoryService } from './category.service';
+import { Router } from '@angular/router';
+import { OverlayService } from '../../common/overlay/overlay.service';
 
 @Component({
   selector: 'app-category',

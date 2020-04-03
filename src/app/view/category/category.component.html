@@ -22,85 +22,57 @@
 </div> -->
 <div class="row">
     <div class="col-md-12 col-sm-6 san-title">SHOPEE</div>
-    <div
-        class="col-md-4 col-sm-6 grid-margin stretch-card"
-        *ngFor="let data of listShopee"
-    >
+    <div class="col-md-4 col-sm-6 grid-margin stretch-card" *ngFor="let data of listShopee">
         <div class="card">
             <div class="card-body pd-unset display_flex">
-                <img
-                    [src]="data.imageUrl || 'assets/images/mebe.jpg'"
-                    class="mr-10p image-category"
-                >
-                <div
-                    class="card-right cuiso"
-                    (click)="openCategory(data.categoryId, data.categoryName)"
-                >
+                <img [src]="data.imageUrl || 'assets/images/mebe.jpg'" class="mr-10p image-category">
+                <div class="card-right cuiso" (click)="openCategory(data.categoryId, data.categoryName)">
                     <h4 class="card-title">{{data.categoryName}}</h4>
-                    <p class="card-description text-mute">{{data.categoryName}}</p>
+                    <a href="/category/{{data.categoryId}}">
+                        <p class="card-description text-mute">{{data.categoryName}}</p>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-12 col-sm-6 san-title">TIKI</div>
-    <div
-        class="col-md-4 col-sm-6 grid-margin stretch-card"
-        *ngFor="let data of listTiki"
-    >
+    <div class="col-md-4 col-sm-6 grid-margin stretch-card" *ngFor="let data of listTiki">
         <div class="card">
             <div class="card-body pd-unset display_flex">
-                <img
-                    [src]="data.imageUrl || 'assets/images/mebe.jpg'"
-                    class="mr-10p image-category"
-                >
-                <div
-                    class="card-right cuiso"
-                    (click)="openCategory(data.categoryId, data.categoryName)"
-                >
+                <img [src]="data.imageUrl || 'assets/images/mebe.jpg'" class="mr-10p image-category">
+                <div class="card-right cuiso" (click)="openCategory(data.categoryId, data.categoryName)">
                     <h4 class="card-title">{{data.categoryName}}</h4>
-                    <p class="card-description text-mute">{{data.categoryName}}</p>
+                    <a href="/category/{{data.categoryId}}">
+                        <p class="card-description text-mute">{{data.categoryName}}</p>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-12 col-sm-6 san-title">SENDO</div>
-    <div
-        class="col-md-4 col-sm-6 grid-margin stretch-card"
-        *ngFor="let data of listSendo"
-    >
+    <div class="col-md-4 col-sm-6 grid-margin stretch-card" *ngFor="let data of listSendo">
         <div class="card">
             <div class="card-body pd-unset display_flex">
-                <img
-                    [src]="data.imageUrl || 'assets/images/mebe.jpg'"
-                    class="mr-10p image-category"
-                >
-                <div
-                    class="card-right cuiso"
-                    (click)="openCategory(data.categoryId, data.categoryName)"
-                >
+                <img [src]="data.imageUrl || 'assets/images/mebe.jpg'" class="mr-10p image-category">
+                <div class="card-right cuiso" (click)="openCategory(data.categoryId, data.categoryName)">
                     <h4 class="card-title">{{data.categoryName}}</h4>
-                    <p class="card-description text-mute">{{data.categoryName}}</p>
+                    <a href="/category/{{data.categoryId}}">
+                        <p class="card-description text-mute">{{data.categoryName}}</p>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-12 col-sm-6 san-title">LAZADA</div>
-    <div
-        class="col-md-4 col-sm-6 grid-margin stretch-card"
-        *ngFor="let data of listLazada"
-    >
+    <div class="col-md-4 col-sm-6 grid-margin stretch-card" *ngFor="let data of listLazada">
         <div class="card">
             <div class="card-body pd-unset display_flex">
-                <img
-                    [src]="data.imageUrl || 'assets/images/mebe.jpg'"
-                    class="mr-10p image-category"
-                >
-                <div
-                    class="card-right cuiso"
-                    (click)="openCategory(data.categoryId, data.categoryName)"
-                >
+                <img [src]="data.imageUrl || 'assets/images/mebe.jpg'" class="mr-10p image-category">
+                <div class="card-right cuiso" (click)="openCategory(data.categoryId, data.categoryName)">
                     <h4 class="card-title">{{data.categoryName}}</h4>
-                    <p class="card-description text-mute">{{data.categoryName}}</p>
+                    <a href="/category/{{data.categoryId}}">
+                        <p class="card-description text-mute">{{data.categoryName}}</p>
+                    </a>
                 </div>
             </div>
         </div>

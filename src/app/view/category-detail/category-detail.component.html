@@ -61,7 +61,9 @@
             <div *ngIf="data.isParent == '1'" class="card-right cuiso"
               (click)="openCategory(data.categoryId, data.categoryName)">
               <h4 class="card-title">{{data.categoryName}}</h4>
-              <p class="card-description text-mute">{{data.categoryName}}</p>
+              <a href="/category/{{data.categoryId}}">
+                <p class="card-description text-mute">{{data.categoryName}}</p>
+              </a>
             </div>
             <div *ngIf="data.isParent == '0'" class="card-right">
               <h4 class="card-title">{{data.categoryName}}</h4>
