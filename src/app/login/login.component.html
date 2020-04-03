@@ -5,6 +5,7 @@
   <p>Crawl Ecommerce Site</p>
   <form class="forms-sample">
     <p class="error-message" *ngIf="valid">{{messageValid}}</p>
+    <p *ngIf="loginService.successSignUp" style="color: #00ce68; text-align: center; margin-bottom: 5px;">{{loginService.successSignUp}}</p>
     <div class="form-group">
       <label>Tên đăng nhập</label>
       <input type="username" name="username" class="form-control" [(ngModel)]="username" placeholder="Tên đăng nhập">
@@ -15,7 +16,7 @@
     </div>
     <div class="btn-submit">
       <button type="submit" class="btn btn-success mr-2" (click)="login()">Đăng nhập</button>
-      <!-- <button class="btn btn-light" routerLink="/sign-up">Sign up</button> -->
+       <button class="btn btn-light" routerLink="/sign-up">Đăng ký</button>
     </div>
   </form>
 </div>

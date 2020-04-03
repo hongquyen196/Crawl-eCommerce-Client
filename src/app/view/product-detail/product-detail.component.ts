@@ -50,12 +50,13 @@ export class ProductDetailComponent implements OnInit {
     switch (0) {
       case id.indexOf('tiki'):
         this.product.image = this.data.thumbnail_url;
-        this.product.url = 'https:/tiki.vn/' + this.data.url_path;
+        this.product.url = 'https://tiki.vn/' + this.data.url_path;
         this.proSer.getTikiProductDetail(this.data.url_path).subscribe((res: any) => {
           if (res) {
             this.product.description = res.promotion;
             this.product.thongke.giamax = res.list_price;
             this.product.thongke.kho = res.stock_item.qty;
+            this.product.thongke.danhgia = res.review;
             if (res.custom_attributes && res.custom_attributes.length > 0) {
               res.custom_attributes.forEach(ele => {
                 const thuoctinh = {
@@ -115,7 +116,7 @@ export class ProductDetailComponent implements OnInit {
         break;
       case id.indexOf('sendo'):
         this.product.image = this.data.image;
-        this.product.url = 'https:/sendo.vn/' + this.data.cat_path;
+        this.product.url = 'https://sendo.vn/' + this.data.cat_path;
         this.proSer.getSendoProductDetail(this.data.cat_path.substring(0, this.data.cat_path.length - 6)).subscribe((res: any) => {
           if (res) {
             this.product.description = res.result.data.description;
