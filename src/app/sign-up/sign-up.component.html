@@ -1,25 +1,55 @@
-<div class="login-layout">
-  <div class="logo">
-    VINET Crawl
-    Ecommerce
-    Site
+<div style="height: 100vh; overflow-y: scroll">
+  <div class="login-layout">
+    <div class="logo">
+      VINET Crawl
+      Ecommerce
+      Site
+    </div>
+    <form class="forms-sample">
+      <div class="form-group">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="email" name="email">
+        <div *ngIf="validError.requiredEmail" class="error">{{validError.requiredEmail}}</div>
+      </div>
+      <div class="form-group">
+        <label>Tên đăng nhập <span class="required">*</span></label>
+        <input type="text" class="form-control" placeholder="Tên đăng nhập" [(ngModel)]="username" name="username">
+        <div *ngIf="validError.requiredUsername" class="error">{{validError.requiredUsername}}</div>
+      </div>
+      <div class="form-group">
+        <label>Họ <span class="required">*</span></label>
+        <input type="text" class="form-control" placeholder="Họ" [(ngModel)]="firstname" name="firstname">
+        <div *ngIf="validError.requiredFirstName" class="error">{{validError.requiredFirstName}}</div>
+      </div>
+      <div class="form-group">
+        <label>Tên <span class="required">*</span></label>
+        <input type="text" class="form-control" placeholder="Tên" [(ngModel)]="lastname" name="lastname">
+        <div *ngIf="validError.requiredLastName" class="error">{{validError.requiredLastName}}</div>
+      </div>
+      <div class="form-group">
+        <label>Số điện thoại <span class="required">*</span></label>
+        <input type="text" class="form-control" placeholder="Số điện thoại" [(ngModel)]="phoneNumber" name="phoneNumber">
+        <div *ngIf="validError.validPhone" class="error">{{validError.validPhone}}</div>
+      </div>
+      <div class="form-group">
+        <label>Địa chỉ <span class="required">*</span></label>
+        <input type="text" class="form-control" placeholder="Địa chỉ" [(ngModel)]="address" name="address">
+        <div *ngIf="validError.requiredAddress" class="error">{{validError.requiredAddress}}</div>
+      </div>
+      <div class="form-group">
+        <label>Password <span class="required">*</span></label>
+        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" name="password">
+        <div *ngIf="validError.requiredPassword" class="error">{{validError.requiredPassword}}</div>
+      </div>
+      <div class="form-group">
+        <label>Xác nhận Password <span class="required">*</span></label>
+        <input type="password" class="form-control" placeholder="Xác nhận Password" [(ngModel)]="password_confirm" name="password_confirm">
+        <div *ngIf="validError.validPC" class="error">{{validError.validPC}}</div>
+      </div>
+      <div class="btn-submit">
+        <button type="submit" class="btn btn-success mr-2" (click)="submit()">Đăng ký</button>
+        <button class="btn btn-light" routerLink="/login">Đã có tài khoản</button>
+      </div>
+    </form>
   </div>
-  <form class="forms-sample">
-    <div class="form-group">
-      <label>Email address</label>
-      <input type="email" class="form-control" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" class="form-control" placeholder="Password">
-    </div>
-    <div class="form-group">
-      <label>Xác nhận Password</label>
-      <input type="password" class="form-control" placeholder="Xác nhận Password">
-    </div>
-    <div class="btn-submit">
-      <button type="submit" class="btn btn-success mr-2">Sign Up</button>
-      <button class="btn btn-light" routerLink="/login">Login</button>
-    </div>
-  </form>
 </div>

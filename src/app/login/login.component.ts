@@ -11,7 +11,7 @@ import {OverlayService} from '../common/overlay/overlay.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private loginService: LoginService,
+    public loginService: LoginService,
     private route: Router,
     private overlay: OverlayService
   ) {
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loginService.successSignUp = '';
     this.overlay.open();
     this.loginService.login(this.username, this.password).subscribe(res => {
       localStorage.setItem('userInfo', JSON.stringify(res));
