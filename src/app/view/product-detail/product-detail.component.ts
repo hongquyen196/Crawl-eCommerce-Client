@@ -74,7 +74,7 @@ export class ProductDetailComponent implements OnInit {
       case id.indexOf('shopee'):
         this.product.price = this.data.price / 100000;
         this.product.image = 'https://cf.shopee.vn/file/' + this.data.image;
-        this.product.url = `https:/shopee.vn/product/${this.data.shopid}/${this.data.itemid}`;
+        this.product.url = `https://shopee.vn/product/${this.data.shopid}/${this.data.itemid}`;
         this.proSer.getShopeeProductDetail(this.data.itemid, this.data.shopid).subscribe((res: any) => {
           if (res) {
             this.product.description = res.item.description;
