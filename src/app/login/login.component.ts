@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
-import {OverlayService} from '../common/overlay/overlay.service';
+import { OverlayService } from '../common/overlay/overlay.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   loginLayout: any;
   username;
   password;
-  messageValid = 'Tên đăng nhập hoặc mật khẩu không chính xác!';
+  messageValid = 'Có lỗi xãy ra!';
   valid = false;
 
   ngOnInit() {
@@ -32,14 +32,16 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginService.successSignUp = '';
     this.overlay.open();
-    this.loginService.login(this.username, this.password).subscribe(res => {
-      localStorage.setItem('userInfo', JSON.stringify(res));
-      window.location.reload();
-      this.overlay.close();
-    }, error => {
-      this.overlay.close();
-      this.valid = true;
-    });
+    this.loginService.login(this.username, this.password).subscribe(
+      res => {
+        localStorage.setItem('userInfo', JSON.stringify(res));
+        window.location.reload();
+        this.overlay.close();
+      }, error => {
+        this.overlay.close();
+        this.messageValid = error.message;
+        this.valid = true;
+      });
   }
 
 }

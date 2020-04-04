@@ -23,7 +23,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     this.overlayService.close();
                 }
                 if (url && url.includes('/login')) {
-                    return throwError(err.error.message);
+                    return throwError(err.error);
                 } else {
                     return this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
                 }
@@ -31,7 +31,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (this.overlayService) {
                     this.overlayService.close();
                 }
-                return throwError(err.error.message);
+                return throwError(err.error);
             }
         }));
     }
