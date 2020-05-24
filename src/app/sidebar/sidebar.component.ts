@@ -8,11 +8,12 @@ import { LoginService } from '../login/login.service';
 })
 export class SidebarComponent implements OnInit {
   user: any = {};
+  subSendo = false;
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    this.user = userInfo.user;
+    // const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    // this.user = userInfo.user;
   }
 
 }

@@ -15,11 +15,12 @@ export class AppComponent implements OnInit {
   isLogin = false;
   ngOnInit() {
     const userInfo = localStorage.getItem('userInfo');
-    if (!userInfo) {
-      this.isLogin = false;
-      this.route.navigate(['/login']);
-    } else {
-      this.isLogin = true;
-    }
+    // if (!userInfo) {
+    //   this.isLogin = false;
+    //   this.route.navigate(['/login']);
+    // } else {
+    //   this.isLogin = true;
+    // }
+    this.isLogin = true;
   }
 }

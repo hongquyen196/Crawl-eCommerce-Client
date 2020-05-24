@@ -12,4 +12,6 @@ export class PathAPI {
     public static GET_SENDO_PRODUCT_DETAIL = ApplicationProperties.PATH_API.concat('api/v1/ProductManager/GetSendoProductDetail');
     public static GET_TIKI_PRODUCT_DETAIL = ApplicationProperties.PATH_API.concat('api/v1/ProductManager/GetTikiProductDetail');
     public static SIGN_UP = ApplicationProperties.PATH_API.concat('api/v1/user/register');
+
+    public static SEARCH_SENDO_BY_NODE = ApplicationProperties.PATH_NODE.concat('search/p/sendo');
 }

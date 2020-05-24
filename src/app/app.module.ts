@@ -21,7 +21,7 @@ import { TableComponent } from './view/table/table.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { TooltipModule } from 'ngx-bootstrap';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { JwtInterceptor } from './auth/jwt.interceptor';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -29,6 +29,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ErrorInterceptor } from './auth/error.interceptor';
 import { OverlayComponent } from './common/overlay/overlay.component';
+import { SearchSendoComponent } from './view/sendo/search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,8 @@ import { OverlayComponent } from './common/overlay/overlay.component';
     LoginComponent,
     SignUpComponent,
     TableComponent,
-    OverlayComponent
+    OverlayComponent,
+    SearchSendoComponent
   ],
   imports: [
     BrowserModule,

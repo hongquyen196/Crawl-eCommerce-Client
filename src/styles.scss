@@ -2,7 +2,7 @@
 
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
-@import './assets/styles/variables';
+@import "./assets/styles/variables";
 @import "../node_modules/compass-mixins/lib/compass";
 @import "../node_modules/compass-mixins/lib/animate";
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -50,3 +50,69 @@
 @import "./assets/styles/utilities";
 @import "./assets/styles/demo";
 /* You can add global styles to this file, and also import other style files */
+.v-checkbox {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.v-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.v-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #eee;
+}
+
+/* On mouse-over, add a grey background color */
+.v-checkbox:hover input ~ .v-checkmark {
+    background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.v-checkbox input:checked ~ .v-checkmark {
+    background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.v-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.v-checkbox input:checked ~ .v-checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.v-checkbox .v-checkmark:after {
+    left: 6px;
+    top: 3px;
+    width: 7px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}

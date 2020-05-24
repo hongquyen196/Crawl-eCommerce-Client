@@ -1,0 +1,159 @@
+<div class="sd-search">
+    <div class="sd-s-search">
+        <h4>Tìm sản phẩm trên Sendo</h4>
+        <div class="row ">
+            <div class="col-sm-3">
+                <label for="v-start">Trang bắt đầu</label>
+                <input id="v-start" [(ngModel)]="start_page" type="number" class="sd-search-input">
+            </div>
+            <div class="col-sm-3">
+                <label for="v-end">Trang kết thúc</label>
+                <input id="v-end" [(ngModel)]="end_page" type="number" class="sd-search-input">
+            </div>
+            <div class="col-sm-4">
+                <label for="v-key">Từ khóa</label>
+                <input id="v-key" [(ngModel)]="keyword" type="text" class="sd-search-input">
+            </div>
+            <div class="col-sm-2">
+                <button (click)="searchProduct()" class="btn btn-info btn-fw" type="button">Tìm kiếm</button>
+            </div>
+        </div>
+    </div>
+    <div class="sd-s-result" *ngIf="dataResult.length == 0">
+        <div style="text-align: center;">Không có kết quả hiển thị.</div>
+    </div>
+    <div class="sd-s-result" *ngIf="dataResult.length > 0">
+        <div class="sd-rs-title">
+            <label>Danh sách sản phẩm</label>
+            <div>
+                <button class="btn btn-outline-warning" type="button">Bỏ chọn hết</button>
+                <button class="btn btn-outline-primary" type="button">Chọn tất cả</button>
+                <button class="btn btn-outline-danger" type="button">Sao chép</button>
+            </div>
+        </div>
+
+        <div class="sd-rs-action">
+            <label>Hiển thị <input type="numnber" min="1" class="sd-rs-record"> kết quả</label>
+            <div>
+                <label>Tìm kiếm <input type="text" class="sd-rs-filter"></label>
+            </div>
+        </div>
+        
+        <div class="sd-rs-tbl">
+            <table class="table-bordered">
+                <tr>
+                    <th class="tbl-col-1">
+                        <div class="tbl-th">
+                            #
+                            <i class="mdi mdi-sort" (click)="sortProduct('index')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-2">
+                        Hình ảnh
+                    </th>
+                    <th class="tbl-col-3">
+                        <div class="tbl-th">
+                            Sản phẩm
+                            <i class="mdi mdi-sort" (click)="sortProduct('name')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-4">
+                        <div class="tbl-th">
+                            Giá
+                            <i class="mdi mdi-sort" (click)="sortProduct('price')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-5">
+                        <div class="tbl-th">
+                            B.Luận
+                            <i class="mdi mdi-sort" (click)="sortProduct('total_comment')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-6">
+                        <div class="tbl-th">
+                            Xem
+                            <i class="mdi mdi-sort" (click)="sortProduct('counter_view')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-7">
+                        <div class="tbl-th">
+                            Thích
+                            <i class="mdi mdi-sort" (click)="sortProduct('counter_like')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-8">
+                        <div class="tbl-th">
+                            Đ.Giá
+                            <i class="mdi mdi-sort" (click)="sortProduct('total_rated')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-9">
+                        <div class="tbl-th">
+                            Star
+                            <i class="mdi mdi-sort" (click)="sortProduct('percent_star')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-10">
+                        <div class="tbl-th">
+                            Đã bán
+                            <i class="mdi mdi-sort" (click)="sortProduct('order_count')"></i>
+                        </div>
+                    </th>
+                    <th class="tbl-col-11">
+                        <div class="tbl-th">
+                            D.Số
+                            <i class="mdi mdi-sort" (click)="sortProduct('total_sales')"></i>
+                        </div>
+                    </th>
+                </tr>
+                <tr *ngFor="let product of dataResult;">
+                    <td class="tbl-col-1">
+                        <label class="v-checkbox">
+                            <input type="checkbox" [(ngModel)]="product.select">
+                            <span class="v-checkmark"></span>
+                            {{product.index}}
+                        </label>
+
+                    </td>
+                    <td class="tbl-col-2">
+                        <img src="{{product.image}}">
+                    </td>
+                    <td class="tbl-col-3">
+                        <a href="https://sendo.vn/{{product.cat_path}}" target="_blank">{{product.name}}</a>
+                    </td>
+                    <td class="tbl-col-4">
+                        {{sendoService.formatCurrency(product.price)}}
+                    </td>
+                    <td class="tbl-col-5">
+                        {{product.total_comment}}
+                    </td>
+                    <td class="tbl-col-6">
+                        {{product.counter_view}}
+                    </td>
+                    <td class="tbl-col-7">
+                        {{product.counter_like}}
+                    </td>
+                    <td class="tbl-col-8">
+                        {{product.total_rated}}
+                    </td>
+                    <td class="tbl-col-9">
+                        <div *ngIf="product.total_rated == 0">Chưa có</div>
+                        <ngb-rating [starTemplate]="t" class="v-star" *ngIf="product.total_rated > 0"
+                            [rate]="product.rating_info.percent_star" [max]="5" [readonly]="true">
+
+                        </ngb-rating>
+                        <ng-template #t>
+                            <span class="v-star">&#9733;</span>
+                        </ng-template>
+                    </td>
+                    <td class="tbl-col-10">
+                        {{product.order_count}}
+                    </td>
+                    <td class="tbl-col-11">
+                        {{sendoService.formatCurrency(product.total_sales)}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
