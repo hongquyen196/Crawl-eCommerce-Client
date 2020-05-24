@@ -24,6 +24,8 @@ export class SearchSendoComponent implements OnInit {
   start_page = 1;
   end_page = 5;
   keyword= '';
+  recordInPage = 20;
+  currentPage = 1;
   constructor(public sendoService: SendoService) { }
 
   ngOnInit() {
@@ -33,15 +35,32 @@ export class SearchSendoComponent implements OnInit {
     if (this.keyword == '') {
       return;
     }
-    this.sendoService.searchInSendo(this.keyword, this.start_page, this.end_page).subscribe((res:any) => {
-      this.dataResult = res.result.data;
-      let count = 1;
-      this.dataResult.forEach((p:any) => {
-        p.index = count++;
-        p.select = false;
-        p.total_sales = p.price * p.order_count;
+    this.searchSendoByPage(this.start_page);
+  }
+
+  searchSendoByPage(page){
+    if (page > this.end_page){
+      this.currentPage = 1;
+      return;
+    } else {
+      this.sendoService.searchInSendo(this.keyword, this.start_page).subscribe((res:any) => {
+        let dataRs = res.result.data
+
+        let count = this.dataResult.length + 1;
+        dataRs.forEach((p:any) => {
+          p.index = count++;
+          p.select = false;
+          p.total_sales = p.price * p.order_count;
+        });
+        this.dataResult = this.dataResult.concat(dataRs);
+        this.searchSendoByPage(++page);
       })
-    })
+    }
+  }
+
+  selectPage() {
+    console.log(this.currentPage);
+    
   }
 
   sortProduct(key) {

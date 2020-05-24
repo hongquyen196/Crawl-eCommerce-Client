@@ -13,8 +13,7 @@ export class SendoService {
     return value && value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
   }
 
-  searchInSendo(keyword, start_page, end_page){
-    let numberProduct = (end_page - start_page + 1) * 60;
-    return this.httpClient.get(PathAPI.SEARCH_SENDO_BY_NODE + '?keyword=' + keyword + '&start=' + start_page + '&size='+ numberProduct);
+  searchInSendo(keyword, start_page){
+    return this.httpClient.get(PathAPI.SEARCH_SENDO_BY_NODE + '?keyword=' + keyword + '&start=' + start_page + '&size='+ 60);
   }
 }
