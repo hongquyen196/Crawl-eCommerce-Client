@@ -1,6 +1,4 @@
-# StarAdminAngular
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
+# Crawl all product information from Shopee, Tiki, Lazada, Sendo.
 
 <h1>Demo</h1>
 
